@@ -13,23 +13,10 @@ class App extends Component {
     ],
     filter: '',
   };
-  onSubmit = newContact => {
+  addContact = newContact => {
     this.setState(prevState => ({
       contacts: [...prevState.contacts, newContact],
     }));
-  };
-  checkNewContact = newContact => {
-    if (
-      this.state.contacts.find(
-        contact =>
-          contact.name.toLocaleLowerCase() ===
-          newContact.name.toLocaleLowerCase()
-      )
-    ) {
-      alert(newContact.name + ' is alredy in contacts');
-      return true;
-    }
-    return false;
   };
   onChangeFilter = async e => {
     await this.setState({ filter: e.target.value });
@@ -39,30 +26,30 @@ class App extends Component {
       contacts: prevState.contacts.filter(contact => contact.id !== id),
     }));
   };
-  render() {
-    const { contacts, filter } = this.state;
-    const normFilter = filter.toLocaleLowerCase();
-    const visibleContacts = contacts.filter(contact =>
-      contact.name.toLocaleLowerCase().includes(normFilter)
-    );
-    const deleteContact = this.deleteContact;
-    const onChangeFilter = this.onChangeFilter;
-    const onSubmit = this.onSubmit;
-    const checkNewContact = this.checkNewContact;
 
+  getVisibleContacts = () => {
+    const { contacts, filter } = this.state;
+    const normalizedFilter = filter.toLocaleLowerCase();
+    return contacts.filter(contact =>
+      contact.name.toLocaleLowerCase().includes(normalizedFilter)
+    );
+  };
+
+  render() {
+    const { filter } = this.state;
+    const visibleContacts = this.getVisibleContacts();
     return (
-      <div className="main">
+      <div>
         <h1>Phonebook</h1>
-          <ContactForm
-             onSubmit={onSubmit}
-             checkNewContact={checkNewContact} />
+        <ContactForm
+          onSubmit={this.onSubmit}
+          checkNewContact={this.checkNewContact}
+        />
         <h2>Contacts</h2>
-          <Filter
-             filter={filter}
-             onChange={onChangeFilter} />
+        <Filter filter={filter} onChange={this.onChangeFilter} />
         <ContactList
           visibleContacts={visibleContacts}
-          deleteContact={deleteContact}
+          deleteContact={this.deleteContact}
         />
       </div>
     );
