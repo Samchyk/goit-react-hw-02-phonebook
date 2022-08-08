@@ -18,6 +18,8 @@ const ContactList = ({ visibleContacts, deleteContact }) => {
   );
 };
 
+
+
 ContactList.propTypes = {
   visibleContacts: PropTypes.arrayOf(
     PropTypes.shape({

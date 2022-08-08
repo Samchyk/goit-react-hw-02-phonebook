@@ -18,6 +18,7 @@ class App extends Component {
       contacts: [...prevState.contacts, newContact],
     }));
   };
+
   onChangeFilter = async e => {
     await this.setState({ filter: e.target.value });
   };
@@ -27,22 +28,31 @@ class App extends Component {
     }));
   };
 
-  getVisibleContacts = () => {
-    const { contacts, filter } = this.state;
-    const normalizedFilter = filter.toLocaleLowerCase();
-    return contacts.filter(contact =>
-      contact.name.toLocaleLowerCase().includes(normalizedFilter)
-    );
+  checkNewContact = newContact => {
+    if (
+      this.state.contacts.find(
+        contact =>
+          contact.name.toLocaleLowerCase() ===
+          newContact.name.toLocaleLowerCase()
+      )
+    ) {
+      alert(newContact.name + ' is alredy in contacts');
+      return true;
+    }
+    return false;
   };
-
   render() {
-    const { filter } = this.state;
-    const visibleContacts = this.getVisibleContacts();
+    const { contacts, filter } = this.state;
+    const normFilter = filter.toLocaleLowerCase();
+    const visibleContacts = contacts.filter(contact =>
+      contact.name.toLocaleLowerCase().includes(normFilter)
+    );
+
     return (
       <div>
         <h1>Phonebook</h1>
         <ContactForm
-          onSubmit={this.onSubmit}
+          addContact={this.addContact}
           checkNewContact={this.checkNewContact}
         />
         <h2>Contacts</h2>
