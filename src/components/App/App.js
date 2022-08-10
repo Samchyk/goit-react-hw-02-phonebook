@@ -28,19 +28,19 @@ class App extends Component {
     }));
   };
 
-  checkNewContact = newContact => {
-    if (
-      this.state.contacts.find(
-        contact =>
-          contact.name.toLocaleLowerCase() ===
-          newContact.name.toLocaleLowerCase()
-      )
-    ) {
-      alert(newContact.name + ' is alredy in contacts');
-      return true;
-    }
-    return false;
-  };
+  // checkNewContact = newContact => {
+  //   if (
+  //     this.state.contacts.find(
+  //       contact =>
+  //         contact.name.toLocaleLowerCase() ===
+  //         newContact.name.toLocaleLowerCase()
+  //     )
+  //   ) {
+  //     alert(newContact.name + ' is alredy in contacts');
+  //     return true;
+  //   }
+  //   return false;
+  // };
   render() {
     const { contacts, filter } = this.state;
     const normFilter = filter.toLocaleLowerCase();
@@ -53,7 +53,7 @@ class App extends Component {
         <h1>Phonebook</h1>
         <ContactForm
           addContact={this.addContact}
-          checkNewContact={this.checkNewContact}
+          visibleContacts={visibleContacts}
         />
         <h2>Contacts</h2>
         <Filter filter={filter} onChange={this.onChangeFilter} />

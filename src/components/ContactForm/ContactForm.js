@@ -20,7 +20,7 @@ class ContactForm extends Component {
       number,
       id: String(nanoid(5)),
     };
-    if (this.props.checkNewContact(newContact)) {
+    if (this.checkNewContact(newContact)) {
       return;
     }
     this.props.addContact(newContact);
@@ -32,7 +32,7 @@ class ContactForm extends Component {
 
   checkNewContact = newContact => {
     if (
-      this.state.contacts.find(
+      this.props.visibleContacts.find(
         contact =>
           contact.name.toLocaleLowerCase() ===
           newContact.name.toLocaleLowerCase()
@@ -44,9 +44,9 @@ class ContactForm extends Component {
     return false;
   };
 
-
   render() {
     const { number, name } = this.state;
+    
     return (
       <form className={s.form} onSubmit={this.onSubmit}>
         <label className={s.label}>
@@ -81,8 +81,7 @@ class ContactForm extends Component {
 
 ContactForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
-  checkNewContact: PropTypes.func.isRequired,
-  
+  visibleContacts: PropTypes.func.isRequired,
 };
 
 export default ContactForm;
