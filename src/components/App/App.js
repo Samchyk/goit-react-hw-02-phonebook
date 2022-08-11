@@ -13,6 +13,8 @@ class App extends Component {
     ],
     filter: '',
   };
+
+  
   addContact = newContact => {
     this.setState(prevState => ({
       contacts: [...prevState.contacts, newContact],
