@@ -28,19 +28,6 @@ class App extends Component {
     }));
   };
 
-  // checkNewContact = newContact => {
-  //   if (
-  //     this.state.contacts.find(
-  //       contact =>
-  //         contact.name.toLocaleLowerCase() ===
-  //         newContact.name.toLocaleLowerCase()
-  //     )
-  //   ) {
-  //     alert(newContact.name + ' is alredy in contacts');
-  //     return true;
-  //   }
-  //   return false;
-  // };
   render() {
     const { contacts, filter } = this.state;
     const normFilter = filter.toLocaleLowerCase();
